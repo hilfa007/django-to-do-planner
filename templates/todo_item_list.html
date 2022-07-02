@@ -11,9 +11,8 @@
             <h3>Edit list:</h3>
             <h5></h5>
             <div>
-                {{todolist_id.id}}
-                {{all}}
-                <form action="{% url 'addlistitem' todolist_id.id %}" method="post">
+                {{todolist.id}}
+                <form action="{% url 'addlistitem' todolist.id %}" method="post">
                     {% csrf_token %}
                     <span>
                         title : <input class="" type="text" name="title"><br>
@@ -33,14 +32,11 @@
 
             <div>
                 {% for i in all %}
-                <ul>
+                <ol>
                     <li>
-                        {{i.content}}
+                        {{i.content}}  ({{i.description}})  
                     </li>
-                    <li>
-                        {{i.description}}
-                    </li>
-                </ul>
+                </ol>
                 {% endfor %}
             </div>
 

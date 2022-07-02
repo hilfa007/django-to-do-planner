@@ -26,18 +26,18 @@ def deleteitem(request,id):
 
 def todoitemlist(request,id):
     todolist = ToDoList.objects.get(id=id)
-    all = ToDoListItems.objects.all().order_by('-id')
-    return render(request,'todo_item_list.html',{'todolist_id' : todolist,'all':all})
+    all = ToDoListItems.objects.filter(todolist=todolist).order_by('-id')
+    return render(request,'todo_item_list.html',{'todolist' : todolist,'all':all})
 
 def addlistitem(request,id):
-    todolist_id = ToDoList.objects.get(id=id)
+    todolist = ToDoList.objects.get(id=id)
     title = request.POST['title']
     desc = request.POST['desc']
-    plan = ToDoListItems(content=title,description=desc,todolist=todolist_id)
-    all = ToDoListItems.objects.all().order_by('-id')
+    plan = ToDoListItems(content=title,description=desc,todolist=todolist)
+    all = ToDoListItems.objects.filter(todolist=todolist).order_by('-id')
     try:
         plan.save()
     except IntegrityError as err:
         return HttpResponseRedirect('/')
     plan.save()
-    return render(request,'todo_item_list.html',{'todolist_id' : todolist_id,'all':all})
+    return render(request,'todo_item_list.html',{'todolist' : todolist,'all':all})

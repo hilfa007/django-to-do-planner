@@ -5,7 +5,7 @@
 <head>
     <style>
         .shadowbox {
-            width: 15em;
+           
             border: 1px solid rgb(16, 23, 27);
             box-shadow: 8px 8px 5px rgb(154, 194, 255);
             padding: 8px 12px;
@@ -14,12 +14,13 @@
           
     </style>
 </head>
+<hr>
 <section class="">  
     <div class="row container-fluid pl-5">
         <div class="container-fluid text-center p-2 my-3">
+            <h3 class="text-primary" style="font-family:Georgia, 'Times New Roman', Times, serif">{{todolist}}</h3>
             <div>
                     <div>
-                        <h3 class="display-4">{{todolist}}</h3>
                         <h5></h5>
 
                         <!--------------show list items-------------->
@@ -28,14 +29,47 @@
                                 {% for i in all %}
                                 <span class="pl-3 pr-5">
                                     <div class="shadowbox border-0">
-                                        <p>{{i.content}}  ({{i.description}})</p>
-                                    </div>
+                                        <ul>
+                                            <li>
+                                                <h5 class="text-dark" style="font-family:Georgia, 'Times New Roman', Times, serif;">{{i.content}}  ({{i.description}})</h5>
+                                            </li>
+                                        </ul>
+                                        
+                                    </div><br>
                                 </span>
                                 {% empty %}
                                 
                                 {% endfor %}
                         
                         </div>
+                        <div class="row container-fluid pl-5">
+                            <div class="container-fluid text-center p-2 my-3">
+                            <div class="">
+                                
+                            </div>
+                            </div>
+                            </div>
+                    
+                            <div class="row container-fluid pl-5">
+                            <div class="container p-2 my-3">
+                            <ul class="list-group">
+                                {% for i in all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="">{{i.content}}[{{i.description}}]</a>
+                                    <span class="">
+                                        <form action="/deletelistitem/{{i.id}}" method="post">
+                                            {% csrf_token %}
+                                            <button class="btn btn-outline-primary my-2 my-sm-0" value="add" type="submit">delete</button>
+                                        </form>
+                                    </span>
+                                </li>
+                                {% empty %}
+                                <h4>You have no lists!</h4>
+                                {% endfor %}
+                            
+                            </ul>
+                        </div>
+                    </div>         
 
                         <!--------------add more items button-------------->
 

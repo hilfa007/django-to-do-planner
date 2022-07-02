@@ -29,6 +29,12 @@ def todoitemlist(request,id):
     all = ToDoListItems.objects.filter(todolist=todolist).order_by('-id')
     return render(request,'todo_item_list.html',{'todolist' : todolist,'all':all})
 
+def deletelistitem(request,id):
+    id = ToDoListItems.objects.get(id=id)
+    id.delete()
+    return HttpResponseRedirect(reverse('todoitem-list',kwargs={'id': id}))
+
+
 def addmoreitems(request,id):
     todolist = ToDoList.objects.get(id=id)
     return render(request,'addlistitems.html',{'todolist':todolist})
@@ -44,3 +50,4 @@ def addlistitem(request,id):
     except IntegrityError as err:
         return HttpResponseRedirect('/')
     return render(request,'todo_item_list.html',{'todolist' : todolist,'all':all})
+

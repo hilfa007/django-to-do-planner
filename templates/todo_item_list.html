@@ -1,0 +1,53 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<section class="">  
+    <div class="row container-fluid pl-5">
+        <div class="container-fluid text-center p-2 my-3">
+<div>
+    <div>
+        <div>
+            <h3>Edit list:</h3>
+            <h5></h5>
+            <div>
+                {{todolist_id.id}}
+                {{all}}
+                <form action="{% url 'addlistitem' todolist_id.id %}" method="post">
+                    {% csrf_token %}
+                    <span>
+                        title : <input class="" type="text" name="title"><br>
+                    </span>
+                    <span>
+                        description : <textarea name="desc" id="" cols="30" rows="10"></textarea><br>
+                    </span>
+                    <span>
+                        
+                    
+                    </span>
+                    <input type="submit">
+                    
+                </form>
+            </div>
+            
+
+            <div>
+                {% for i in all %}
+                <ul>
+                    <li>
+                        {{i.content}}
+                    </li>
+                    <li>
+                        {{i.description}}
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+</div>          
+</section>
+{% endblock %}

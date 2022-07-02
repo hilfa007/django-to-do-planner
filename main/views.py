@@ -29,6 +29,10 @@ def todoitemlist(request,id):
     all = ToDoListItems.objects.filter(todolist=todolist).order_by('-id')
     return render(request,'todo_item_list.html',{'todolist' : todolist,'all':all})
 
+def addmoreitems(request,id):
+    todolist = ToDoList.objects.get(id=id)
+    return render(request,'addlistitems.html',{'todolist':todolist})
+
 def addlistitem(request,id):
     todolist = ToDoList.objects.get(id=id)
     title = request.POST['title']
@@ -39,5 +43,4 @@ def addlistitem(request,id):
         plan.save()
     except IntegrityError as err:
         return HttpResponseRedirect('/')
-    plan.save()
     return render(request,'todo_item_list.html',{'todolist' : todolist,'all':all})

@@ -2,48 +2,51 @@
 {% extends "base.html" %}
 
 {% block content %}
+<head>
+    <style>
+        .shadowbox {
+            width: 15em;
+            border: 1px solid rgb(16, 23, 27);
+            box-shadow: 8px 8px 5px rgb(154, 194, 255);
+            padding: 8px 12px;
+            background-image: linear-gradient(180deg, #fff, rgb(252, 252, 252) 40%, rgb(148, 165, 182));
+          }
+          
+    </style>
+</head>
 <section class="">  
     <div class="row container-fluid pl-5">
         <div class="container-fluid text-center p-2 my-3">
-<div>
-    <div>
-        <div>
-            <h3>Edit list:</h3>
-            <h5></h5>
             <div>
-                {{todolist.id}}
-                <form action="{% url 'addlistitem' todolist.id %}" method="post">
-                    {% csrf_token %}
-                    <span>
-                        title : <input class="" type="text" name="title"><br>
-                    </span>
-                    <span>
-                        description : <textarea name="desc" id="" cols="30" rows="10"></textarea><br>
-                    </span>
-                    <span>
+                    <div>
+                        <h3 class="display-4">{{todolist}}</h3>
+                        <h5></h5>
+
+                        <!--------------show list items-------------->
+
+                        <div class="row">
+                                {% for i in all %}
+                                <span class="pl-3 pr-5">
+                                    <div class="shadowbox border-0">
+                                        <p>{{i.content}}  ({{i.description}})</p>
+                                    </div>
+                                </span>
+                                {% empty %}
+                                
+                                {% endfor %}
                         
-                    
-                    </span>
-                    <input type="submit">
-                    
-                </form>
-            </div>
-            
+                        </div>
 
-            <div>
-                {% for i in all %}
-                <ol>
-                    <li>
-                        {{i.content}}  ({{i.description}})  
-                    </li>
-                </ol>
-                {% endfor %}
-            </div>
+                        <!--------------add more items button-------------->
 
+                        <form action="{% url 'addmoreitems' todolist.id %}" method="post">
+                            {% csrf_token %}
+                            <span><button class="btn btn-outline-primary my-2 my-sm-0">add more to the list</button></span>
+                        </form>
+                    </div>
+            </div>
         </div>
-    </div>
-</div>
-</div>
-</div>          
+    </div>          
 </section>
+
 {% endblock %}

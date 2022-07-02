@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+     <!----------add list items form------------>
+
+
+     <form action="{% url 'addlistitem' todolist.id %}" method="post">
+        {% csrf_token %}
+        <span>
+            title : <input class="" type="text" name="title"><br>
+        </span>
+        <span>
+            description : <textarea name="desc" id="" cols="30" rows="10"></textarea><br>
+        </span>
+        <span>
+            
+        
+        </span>
+        <input type="submit">
+        
+    </form>
+
+
+{% endblock %}

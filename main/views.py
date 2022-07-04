@@ -29,10 +29,13 @@ def todoitemlist(request,id):
     all = ToDoListItems.objects.filter(todolist=todolist).order_by('-id')
     return render(request,'todo_item_list.html',{'todolist' : todolist,'all':all})
 
-def deletelistitem(request,id):
+def deletelistitem(request,id,t_id):
     id = ToDoListItems.objects.get(id=id)
     id.delete()
-    return HttpResponseRedirect(reverse('todoitem-list',kwargs={'id': id}))
+    todolist = ToDoList.objects.get(id=t_id)
+    all = ToDoListItems.objects.filter(todolist=todolist).order_by('-id')
+    return render(request,'todo_item_list.html',{'todolist' : todolist,'all':all})
+
 
 
 def addmoreitems(request,id):

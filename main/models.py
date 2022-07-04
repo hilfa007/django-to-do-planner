@@ -20,6 +20,8 @@ class ToDoListItems(models.Model):
     content = models.TextField(max_length=200,unique=True)
     description = models.TextField(null=True, blank=True)
     todolist = models.ForeignKey(ToDoList,on_delete=models.CASCADE)
+    due_date = models.DateField(default=one_week_hence,null=True,blank=True)
+    checked = models.BooleanField(blank=True)
     
     def __str__(self):
         return self.content

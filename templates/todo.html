@@ -1,59 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="pl-5">  
-    <div class="row container-fluid pl-5">
-        <div class="container-fluid text-center p-2 my-3">
-        <div class="">
-            <nav class="navbar rounded text-center  bg-white container p-3 ">
-                <form class="form-inline" action="/addtodoitem/" method='post'>
-                    {% csrf_token %}
-                <span class="pl-5 pr-5">
-                    <input class="form-control text-center mr-sm-2" type="text" name="content" placeholder="Create a new plan..." >
-                </span>
-                <span class="pl-5 p-3 pr-5">
-                    <input class="rounded border-white border-0 p-1 border-shadow-white text-white bg-primary" name="datetime" type="datetime-local">
+<head>
 
-                </span>
-                <span class="pl-5 pr-5">
-                    <div>
-                        <input class="form-check-input  " type="checkbox" name="logicalcb" id="checkboxNoLabel" value="" aria-label="...">logical
-                    </div>
-                </span>
-                <span class="pl-3 pr-5">
-                    <div>
-                        <input class="form-check-input mr-sm-2" type="checkbox" name="creativecb" id="checkboxNoLabel" value="" aria-label="...">creative
-                    </div>
-                </span>
+</head>
+
+<html>
+    <body>
+  
+<section class="pl-5"> <p class=" text-right text-primary pr-5"> {{today}}</p>
+    <div class="row container-fluid pl-5">
+        <div class="container-fluid text-center pl-2 pr-2 my-3">
+            <nav class="navbar rounded bg-white container pl-3 pr-3 ">
+                <form class="form-inline" action="/addtodoitem/" method='post'>
+                {% csrf_token %}
                 
-                <span class="pl-3 pr-5">
-                    <button class="btn text-center text-2 btn-outline-primary my-2 my-sm-0" value="add" type="submit">&plus;</button>
+                <span class=" text-primary">
+                    <span class="pl-3"></span><input class="form-control mr-sm-2 border-primary" type="text" size="40" name="content" placeholder="Add a new list.." >
+                </span>
+                <span class="pl-3  pr-5">
+                    
+                    <button class="btn   text-2 btn-outline-primary my-2 my-sm-0" value="add" type="submit">Add&plus;</button>
                 </span>
                 </form>
             </nav>
         </div>
         </div>
-        </div>
-
         <div class="row container-fluid pl-5">
-        <div class="container p-2 my-3">
+        <div class="container pl-2 pr-2 my-3">
         <ul class="list-group">
-            {% for i in all_items %}
+            {% for i in all_lists %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="/todoitem-list/{{i.id}}">{{i.title}}</a>
+                <a href="/todoitem-list/{{i.id}}">{{i.title}} 
+
+                   
+
+                </a>
                 <span class="">
                     <form action="deleteitem/{{i.id}}" method="post">
                         {% csrf_token %}
-                        <button class="btn btn-outline-primary my-2 my-sm-0" value="add" type="submit">delete</button>
-                        
+                        <button class="btn btn-outline-primary my-2 my-sm-0" value="add" type="submit">delete</button>  
                     </form>
                 </span>
             </li>
             {% empty %}
             <h4>You have no lists!</h4>
             {% endfor %}
-        
         </ul>
     </div>
 </div>          
 </section>
+</body>
+</html>
 {% endblock %}
+  

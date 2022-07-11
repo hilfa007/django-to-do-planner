@@ -5,33 +5,51 @@
 <head>
     
 </head>
-<section class="">  
+<section class="">  <p class=" text-right text-primary pr-5"> {{today}}</p>
     <div class="row container-fluid pl-5">
         <div class="container text-center mt-2">
-            <div class="shadowbox border-0">
+            <div class="shadowbox border-2">
                 <h3 class="text-primary" style="font-family:Georgia, 'Times New Roman', Times, serif">{{todolist}}</h3>
             </div>
-            <div>
                         <!--------------show list items-------------->
-                        </div>
-                        <div class="row container-fluid pl-5">
-                            <div class="container-fluid text-center p-2 my-3">
-                            <div class="">
-                                
-                            </div>
-                            </div>
-                            </div>
-                    
-                            <div class="row container-fluid pl-5">
-                            <div class="container p-1 my-3">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <form action="{% url 'addlistitem' todolist.id %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                          <input class="form-control" type="text" placeholder="Enter title" name="title">
+                                        </div>
+                                        <div class="form-group">
+                                          <textarea class="form-control" name="desc" placeholder="description..." id="" cols="30" rows="10"></textarea>
+                                        </div>
+                                        <div class="form-date">
+                                          <label for="">Due date : </label>
+                                            <input class="rounded border-white border-0 p-1 border-shadow-white text-white bg-primary" name="date" type="date">
+                                        </div>
+                                        <div class="form-check">
+                                          
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+
+                            <div class="col-md-8 align-items-center" p-1 my-1">
                             <ul class="list-group">
                                 {% for i in all %}
-                                <li class="list-group-item d-flex justify-content-between text-primary align-items-center">
+                                <li class="list-group-item d-flex text-primary align-items-center">
                                     {{i.content}}[ {{i.description}} ]
-                                    <span class="">
+                                    <span class="ml-auto pr-5 ">
+                                        <div class="form-check">
+                                            {{i.due_date}}  
+                                        </div>
+                                    </span>
+                                    
+
+                                    <span class="pl-3">
                                         <form action="/deletelistitem/{{i.id}}/{{todolist.id}}" method="post">
                                             {% csrf_token %}
-                                            <button class="btn btn-outline-primary my-2 my-sm-0" value="add" type="submit">delete</button>
+                                            <button class="btn btn-outline-primary my-2 my-sm-0" value="add" type="submit">-</button>
                                         </form>
                                     </span>
                                 </li>
@@ -39,17 +57,21 @@
                                 <h4>You have no lists!</h4>
                                 {% endfor %}
                             </ul>
-                        </div>
-                    </div>         
-                        <!--------------add more items button-------------->
+                            <div class="mr-auto p-2">
+                                <!--------------add more items button-------------->
 
-                        <form action="{% url 'addmoreitems' todolist.id %}" method="post">
-                            {% csrf_token %}
-                            <span><button class="btn btn-outline-primary my-2 my-sm-0">add more to the list</button></span>
-                        </form>
+            
+                        <!--------------2nd column-------------->
+
+                        
+                        
+                    </div>     
+
+                        
                     </div>
             </div>
         </div>
+        
     </div>          
 </section>
 
